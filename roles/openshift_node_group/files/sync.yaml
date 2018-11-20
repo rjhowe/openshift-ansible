@@ -62,7 +62,7 @@ spec:
           if [[ -f /etc/origin/node/node-config.yaml ]]; then
             md5sum /etc/origin/node/node-config.yaml > /tmp/.old
           else
-            touch /tmp/.old
+            cat /dev/null > /tmp/.old
           fi
 
           # loop until BOOTSTRAP_CONFIG_NAME is set
