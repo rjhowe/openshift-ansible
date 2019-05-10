@@ -124,6 +124,12 @@ spec:
                   echo "nodeName: $KUBELET_HOSTNAME_OVERRIDE" >> /etc/origin/node/tmp/node-config.yaml
             fi
 
+            nodeip="$(sed -nE 's|^NODE_IP=([^#].+)|\1|p' "${file}" | head -1)"
+            if ! [[ -z "${nodeip}" ]]; then
+                 echo "nodeIP: ${nodeip}" >> /etc/origin/node/tmp/node-config.yaml
+
+            fi
+
             # detect whether the node-config.yaml has changed, and if so trigger a restart of the kubelet.
             if [[ ! -f /etc/origin/node/node-config.yaml ]]; then
               cat /dev/null > /tmp/.old
